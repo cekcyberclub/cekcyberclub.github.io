@@ -274,7 +274,7 @@ requestAnimationFrame(frame);
 
 /* ---- live news (refreshed automatically by the GitHub Action) ---- */
 /* Replace YOUR-ORG/YOUR-REPO with your repository, e.g. cekcyberclub/cekcyberclub.github.io */
-const NEWS_URL="https://raw.githubusercontent.com/YOUR-ORG/YOUR-REPO/data/news.json";
+const NEWS_URL="https://raw.githubusercontent.com/cekcyberclub/cekcyberclub.github.io/data/news.json";
 function ago(iso){const m=Math.max(1,Math.round((Date.now()-new Date(iso))/60000));if(m<60)return m+" min ago";const h=Math.round(m/60);if(h<24)return h+" h ago";const d=Math.round(h/24);return d+(d===1?" day ago":" days ago")}
 async function loadNews(){
   const ul=$("#newslist"),note=$("#newsnote");
