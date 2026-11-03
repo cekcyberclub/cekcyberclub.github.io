@@ -1,0 +1,36 @@
+name: Update cyber news
+
+on:
+  schedule:
+    - cron: "0 */6 * * *"   # every 6 hours
+  workflow_dispatch:         # lets you run it by hand from the Actions tab
+
+permissions:
+  contents: write
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Fetch headlines
+        run: python scripts/fetch_news.py
+
+      # The news file goes on its own branch called "data", so the
+      # approval rules on main are not affected.
+      - name: Publish news.json to the data branch
+        run: |
+          cp news.json /tmp/news.json
+          git config user.name "news-bot"
+          git config user.email "news-bot@users.noreply.github.com"
+          git checkout --orphan data
+          git rm -rf . -q
+          cp /tmp/news.json news.json
+          git add news.json
+          git commit -m "Update news"
+          git push -f origin data
