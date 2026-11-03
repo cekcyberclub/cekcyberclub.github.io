@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CEK Cyber Club Blog</title>
+<meta name="description" content="Writeups, guides and news from the Cyber Club of CEK.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Newsreader:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0d1a1f; --panel:#13262d; --line:#25424c;
+  --text:#dbe6e3; --muted:#86a1a1; --amber:#ffb454; --red:#ff6b5e;
+  --mono:'IBM Plex Mono',ui-monospace,Menlo,Consolas,monospace;
+  --serif:'Newsreader',Georgia,'Times New Roman',serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--ink);color:var(--text);font-family:var(--serif);font-size:19px;line-height:1.65}
+a{color:var(--amber);text-underline-offset:3px}
+a:focus-visible,button:focus-visible{outline:2px solid var(--amber);outline-offset:3px}
+.wrap{max-width:860px;margin:0 auto;padding:0 22px}
+header{border-bottom:1px solid var(--line)}
+header .wrap{display:flex;justify-content:space-between;align-items:center;padding-top:18px;padding-bottom:18px;gap:16px;flex-wrap:wrap}
+.brand{font-family:var(--mono);font-weight:600;color:var(--text);text-decoration:none;font-size:16px}
+.brand span{color:var(--amber)}
+nav{font-family:var(--mono);font-size:14px;display:flex;gap:20px}
+nav a{color:var(--muted);text-decoration:none}
+nav a:hover{color:var(--amber)}
+
+/* hero terminal */
+.hero{padding:56px 0 24px}
+.hero h1{font-family:var(--mono);font-weight:600;font-size:clamp(28px,5vw,44px);line-height:1.15;margin:0 0 14px;letter-spacing:-.5px}
+.hero p{margin:0 0 28px;color:var(--muted);max-width:56ch}
+.term{background:var(--panel);border:1px solid var(--line);border-radius:6px;font-family:var(--mono);font-size:15px;overflow:hidden}
+.term-bar{display:flex;gap:7px;padding:10px 14px;border-bottom:1px solid var(--line)}
+.term-bar i{width:10px;height:10px;border-radius:50%;background:var(--line)}
+.term-bar i:first-child{background:var(--red)}
+.term-body{padding:16px 18px;min-height:150px}
+.prompt{color:var(--amber)}
+.cursor{display:inline-block;width:9px;height:17px;background:var(--amber);vertical-align:-3px;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.out{color:var(--muted);margin-top:8px;white-space:pre-wrap}
+
+section{padding:44px 0}
+h2{font-family:var(--mono);font-size:20px;font-weight:600;margin:0 0 6px}
+.sub{color:var(--muted);margin:0 0 24px;font-size:17px}
+
+/* posts */
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.filters button{font-family:var(--mono);font-size:13px;background:none;color:var(--muted);border:1px solid var(--line);border-radius:4px;padding:5px 11px;cursor:pointer}
+.filters button[aria-pressed="true"]{color:var(--ink);background:var(--amber);border-color:var(--amber)}
+.post{display:grid;grid-template-columns:110px 1fr;gap:6px 22px;padding:18px 0;border-top:1px solid var(--line)}
+.post:last-child{border-bottom:1px solid var(--line)}
+.post time{font-family:var(--mono);font-size:13px;color:var(--muted);padding-top:5px}
+.post h3{margin:0;font-size:22px;line-height:1.3;font-weight:600}
+.post h3 a{color:var(--text);text-decoration:none}
+.post h3 a:hover{color:var(--amber)}
+.post p{margin:4px 0 6px;color:var(--muted);font-size:17px}
+.tag{font-family:var(--mono);font-size:12px;color:var(--amber)}
+.empty{color:var(--muted);font-family:var(--mono);font-size:14px;padding:18px 0}
+
+.about p{max-width:62ch;margin:0 0 16px}
+.rules{background:var(--panel);border-left:3px solid var(--red);padding:14px 18px;font-size:17px;max-width:62ch}
+footer{border-top:1px solid var(--line);padding:26px 0 40px;font-family:var(--mono);font-size:13px;color:var(--muted)}
+
+@media(max-width:560px){
+  body{font-size:18px}
+  .post{grid-template-columns:1fr}
+  .post time{padding-top:0}
+}
+@media(prefers-reduced-motion:reduce){.cursor{animation:none}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="brand" href="#top">cek<span>@</span>cyberclub</a>
+    <nav aria-label="Main">
+      <a href="#posts">Posts</a>
+      <a href="#about">About</a>
+      <a href="#write">Write for us</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <div class="wrap">
+    <div class="hero">
+      <h1>Learn it. Break it legally. Write it down.</h1>
+      <p>The blog of the Cyber Club of CEK: guides, CTF writeups and security news, written by students for students.</p>
+      <div class="term" aria-label="Latest posts">
+        <div class="term-bar"><i></i><i></i><i></i></div>
+        <div class="term-body">
+          <div><span class="prompt">$</span> <span id="typed"></span><span class="cursor" aria-hidden="true"></span></div>
+          <div class="out" id="termout"></div>
+        </div>
+      </div>
+    </div>
+
+    <section id="posts">
+      <h2>Posts</h2>
+      <p class="sub">Newest first. Filter by topic.</p>
+      <div class="filters" id="filters" role="group" aria-label="Filter posts by topic"></div>
+      <div id="postlist"></div>
+    </section>
+
+    <section id="about" class="about">
+      <h2>About the club</h2>
+      <p>We are a group of students at the College of Engineering Kerala (CEK) who want to understand how systems break and how to keep them safe. We run workshops, play CTFs together and share what we learn here.</p>
+      <p>New to security? Start with the posts tagged <em>beginner</em>. You do not need any experience to join.</p>
+      <div class="rules">Everything on this blog is for education. Only test systems you own or have written permission to test.</div>
+    </section>
+
+    <section id="write">
+      <h2>Write for us</h2>
+      <p class="sub">Solved a CTF or learned something useful? Share it.</p>
+      <p>Send your draft to the club editor. Add your contact link below once you set it up.</p>
+      <p><a href="mailto:cyberclub@example.com">cyberclub@example.com</a></p>
+    </section>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">&copy; <span id="yr"></span> Cyber Club, CEK. Built with plain HTML and hosted free on GitHub Pages.</div>
+</footer>
+
+<script>
+/* ==== EDIT HERE: add a new post by copying one block and putting it at the top ====
+   date: YYYY-MM-DD   tag: one word   url: link to the full post page (or "#" for now) */
+const POSTS = [
+  { date:"2026-11-01", tag:"beginner", title:"How to spot a phishing message in 30 seconds", summary:"Fake UPI requests, KYC alerts and job offers all share the same tricks. Learn the signs.", url:"#" },
+  { date:"2026-10-25", tag:"ctf", title:"Our first CTF: what we solved and what we missed", summary:"A short writeup of the challenges the club attempted and the lessons from each one.", url:"#" },
+  { date:"2026-10-18", tag:"tools", title:"Nmap basics: scanning your own home lab", summary:"Set up a safe lab and learn the five Nmap commands you will use most.", url:"#" },
+  { date:"2026-10-10", tag:"news", title:"This month in breaches, explained simply", summary:"What happened, who was affected and what you can learn from it.", url:"#" }
+];
+
+const fmt = d => new Date(d+"T00:00:00").toLocaleDateString("en-IN",{day:"numeric",month:"short",year:"numeric"});
+const esc = s => s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const sorted = [...POSTS].sort((a,b)=>b.date.localeCompare(a.date));
+let active = "all";
+
+function render(){
+  const list = document.getElementById("postlist");
+  const items = sorted.filter(p=>active==="all"||p.tag===active);
+  list.innerHTML = items.length ? items.map(p=>`
+    <article class="post">
+      <time datetime="${p.date}">${fmt(p.date)}</time>
+      <div>
+        <h3><a href="${esc(p.url)}">${esc(p.title)}</a></h3>
+        <p>${esc(p.summary)}</p>
+        <span class="tag">#${esc(p.tag)}</span>
+      </div>
+    </article>`).join("") : '<div class="empty">No posts in this topic yet.</div>';
+  document.querySelectorAll("#filters button").forEach(b=>b.setAttribute("aria-pressed", b.dataset.t===active));
+}
+const tags = ["all",...new Set(sorted.map(p=>p.tag))];
+const f = document.getElementById("filters");
+tags.forEach(t=>{
+  const b=document.createElement("button");
+  b.textContent=t; b.dataset.t=t; b.type="button";
+  b.onclick=()=>{active=t;render()};
+  f.appendChild(b);
+});
+render();
+
+/* hero terminal: types one command, then lists the latest posts */
+const cmd="ls -t posts | head -3";
+const typed=document.getElementById("typed"), out=document.getElementById("termout");
+const finish=()=>{typed.textContent=cmd;out.textContent=sorted.slice(0,3).map(p=>p.date+"  "+p.title).join("\n");};
+if(matchMedia("(prefers-reduced-motion: reduce)").matches){finish();}
+else{let i=0;const t=setInterval(()=>{typed.textContent=cmd.slice(0,++i);if(i>=cmd.length){clearInterval(t);setTimeout(finish,350);}},70);}
+
+document.getElementById("yr").textContent=new Date().getFullYear();
+</script>
+</body>
+</html>
