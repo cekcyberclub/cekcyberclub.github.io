@@ -4,175 +4,293 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>CEK Cyber Club Blog</title>
-<meta name="description" content="Writeups, guides and news from the Cyber Club of CEK.">
+<meta name="description" content="Guides, CTF writeups and security news from the Cyber Club of CEK.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Newsreader:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
 <style>
-:root{
-  --ink:#0d1a1f; --panel:#13262d; --line:#25424c;
-  --text:#dbe6e3; --muted:#86a1a1; --amber:#ffb454; --red:#ff6b5e;
-  --mono:'IBM Plex Mono',ui-monospace,Menlo,Consolas,monospace;
-  --serif:'Newsreader',Georgia,'Times New Roman',serif;
-}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;background:var(--ink);color:var(--text);font-family:var(--serif);font-size:19px;line-height:1.65}
-a{color:var(--amber);text-underline-offset:3px}
-a:focus-visible,button:focus-visible{outline:2px solid var(--amber);outline-offset:3px}
-.wrap{max-width:860px;margin:0 auto;padding:0 22px}
-header{border-bottom:1px solid var(--line)}
-header .wrap{display:flex;justify-content:space-between;align-items:center;padding-top:18px;padding-bottom:18px;gap:16px;flex-wrap:wrap}
-.brand{font-family:var(--mono);font-weight:600;color:var(--text);text-decoration:none;font-size:16px}
-.brand span{color:var(--amber)}
-nav{font-family:var(--mono);font-size:14px;display:flex;gap:20px}
-nav a{color:var(--muted);text-decoration:none}
-nav a:hover{color:var(--amber)}
+:root{--ink:#0a0f1f;--panel:#121a33;--line:#243056;--text:#e6ebff;--muted:#8d99c4;--hot:#ff7a59;
+--sans:'Bricolage Grotesque',system-ui,-apple-system,Segoe UI,sans-serif;--mono:'IBM Plex Mono',ui-monospace,Menlo,Consolas,monospace}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--ink);color:var(--text);font-family:var(--sans);font-size:18px;line-height:1.6}
+button{font:inherit;color:inherit;cursor:pointer}
+a{color:var(--hot)}
+:focus-visible{outline:2px solid var(--hot);outline-offset:3px}
+.wrap{max-width:1040px;margin:0 auto;padding:0 22px}
+header{position:sticky;top:0;z-index:20;background:rgba(10,15,31,.85);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;gap:14px;padding-top:12px;padding-bottom:12px}
+.brand{font-family:var(--mono);font-weight:600;font-size:15px;color:var(--text);text-decoration:none;margin-right:auto}
+.brand b{color:var(--hot)}
+.chip{font-family:var(--mono);font-size:13px;border:1px solid var(--line);border-radius:99px;padding:5px 12px;background:none;color:var(--muted)}
+.chip:hover{border-color:var(--hot);color:var(--text)}
+#explored{color:var(--text)}
+#explored i{display:inline-block;width:50px;height:5px;background:var(--line);border-radius:9px;margin:0 8px 1px;vertical-align:middle;overflow:hidden}
+#explored i u{display:block;height:100%;width:0;background:var(--hot);transition:width .5s}
 
-/* hero terminal */
-.hero{padding:56px 0 24px}
-.hero h1{font-family:var(--mono);font-weight:600;font-size:clamp(28px,5vw,44px);line-height:1.15;margin:0 0 14px;letter-spacing:-.5px}
-.hero p{margin:0 0 28px;color:var(--muted);max-width:56ch}
-.term{background:var(--panel);border:1px solid var(--line);border-radius:6px;font-family:var(--mono);font-size:15px;overflow:hidden}
-.term-bar{display:flex;gap:7px;padding:10px 14px;border-bottom:1px solid var(--line)}
-.term-bar i{width:10px;height:10px;border-radius:50%;background:var(--line)}
-.term-bar i:first-child{background:var(--red)}
-.term-body{padding:16px 18px;min-height:150px}
-.prompt{color:var(--amber)}
-.cursor{display:inline-block;width:9px;height:17px;background:var(--amber);vertical-align:-3px;animation:blink 1s steps(1) infinite}
-@keyframes blink{50%{opacity:0}}
-.out{color:var(--muted);margin-top:8px;white-space:pre-wrap}
+/* hero */
+.hero{position:relative;height:min(82vh,720px);min-height:520px;border-bottom:1px solid var(--line);overflow:hidden}
+#net{position:absolute;inset:0;width:100%;height:100%;touch-action:pan-y}
+.hero-text{position:absolute;left:0;right:0;top:11%;pointer-events:none}
+.hero h1{font-size:clamp(34px,6.2vw,68px);line-height:1.02;font-weight:800;letter-spacing:-1.5px;margin:0 0 16px;max-width:9.5em}
+.hero p{margin:0;max-width:30em;color:var(--muted)}
+.hero p b{color:var(--text);font-weight:600}
+#tip{position:absolute;pointer-events:none;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:10px 13px;max-width:240px;font-size:15px;line-height:1.4;opacity:0;transform:translate(-50%,16px);transition:opacity .15s;z-index:3}
+#tip small{display:block;font-family:var(--mono);font-size:12px;color:var(--muted);margin-top:4px}
+.scrollhint{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:12px;color:var(--muted);animation:bob 2s ease-in-out infinite}
+@keyframes bob{50%{transform:translate(-50%,6px)}}
 
-section{padding:44px 0}
-h2{font-family:var(--mono);font-size:20px;font-weight:600;margin:0 0 6px}
-.sub{color:var(--muted);margin:0 0 24px;font-size:17px}
+section{padding:56px 0}
+h2{font-size:30px;font-weight:800;letter-spacing:-.5px;margin:0 0 6px}
+.sub{color:var(--muted);margin:0 0 24px}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}
+.filters button{font-family:var(--mono);font-size:13px;background:none;border:1px solid var(--line);border-radius:99px;padding:6px 14px;color:var(--muted)}
+.filters button[aria-pressed=true]{background:var(--text);color:var(--ink);border-color:var(--text)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:18px}
+.card{position:relative;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px;cursor:pointer;transform:perspective(700px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .15s,border-color .2s;overflow:hidden;display:flex;flex-direction:column;gap:8px}
+.card::before{content:"";position:absolute;inset:0;background:radial-gradient(260px circle at var(--mx,50%) var(--my,0%),var(--c) ,transparent 70%);opacity:0;transition:opacity .25s;mix-blend-mode:soft-light;pointer-events:none}
+.card:hover{border-color:var(--c)}.card:hover::before{opacity:.55}
+.card .tag{font-family:var(--mono);font-size:13px;color:var(--c)}
+.card h3{margin:0;font-size:22px;line-height:1.2;font-weight:600}
+.card p{margin:0;color:var(--muted);font-size:16px}
+.meta{margin-top:auto;padding-top:10px;display:flex;align-items:center;font-family:var(--mono);font-size:12px;color:var(--muted)}
+.meta .seen{margin-left:8px;color:var(--c)}
+.like{margin-left:auto;background:none;border:1px solid var(--line);border-radius:99px;padding:3px 11px;font-family:var(--mono);font-size:13px;color:var(--muted);position:relative;z-index:2}
+.like[aria-pressed=true]{color:var(--hot);border-color:var(--hot)}
+.like.pop{animation:pop .35s}
+@keyframes pop{50%{transform:scale(1.35)}}
 
-/* posts */
-.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
-.filters button{font-family:var(--mono);font-size:13px;background:none;color:var(--muted);border:1px solid var(--line);border-radius:4px;padding:5px 11px;cursor:pointer}
-.filters button[aria-pressed="true"]{color:var(--ink);background:var(--amber);border-color:var(--amber)}
-.post{display:grid;grid-template-columns:110px 1fr;gap:6px 22px;padding:18px 0;border-top:1px solid var(--line)}
-.post:last-child{border-bottom:1px solid var(--line)}
-.post time{font-family:var(--mono);font-size:13px;color:var(--muted);padding-top:5px}
-.post h3{margin:0;font-size:22px;line-height:1.3;font-weight:600}
-.post h3 a{color:var(--text);text-decoration:none}
-.post h3 a:hover{color:var(--amber)}
-.post p{margin:4px 0 6px;color:var(--muted);font-size:17px}
-.tag{font-family:var(--mono);font-size:12px;color:var(--amber)}
-.empty{color:var(--muted);font-family:var(--mono);font-size:14px;padding:18px 0}
+.about{display:grid;grid-template-columns:1fr 1fr;gap:34px}
+.rules{border-left:3px solid var(--hot);padding:4px 0 4px 16px;color:var(--muted)}
+footer{border-top:1px solid var(--line);padding:26px 0 44px;font-family:var(--mono);font-size:13px;color:var(--muted)}
 
-.about p{max-width:62ch;margin:0 0 16px}
-.rules{background:var(--panel);border-left:3px solid var(--red);padding:14px 18px;font-size:17px;max-width:62ch}
-footer{border-top:1px solid var(--line);padding:26px 0 40px;font-family:var(--mono);font-size:13px;color:var(--muted)}
+/* live news */
+.live{display:inline-block;width:9px;height:9px;border-radius:50%;background:#6ee7d8;margin-right:10px;box-shadow:0 0 0 0 rgba(110,231,216,.6);animation:ping 1.8s infinite}
+@keyframes ping{70%{box-shadow:0 0 0 10px rgba(110,231,216,0)}100%{box-shadow:0 0 0 0 rgba(110,231,216,0)}}
+.news{list-style:none;margin:0;padding:0}
+.news li{border-top:1px solid var(--line)}
+.news li:last-child{border-bottom:1px solid var(--line)}
+.news a{display:grid;grid-template-columns:130px 1fr auto;gap:6px 18px;padding:15px 6px;color:var(--text);text-decoration:none;transition:background .2s,padding .2s}
+.news a:hover{background:var(--panel);padding-left:14px}
+.news .src{font-family:var(--mono);font-size:12px;color:#6ee7d8;padding-top:5px}
+.news .ago{font-family:var(--mono);font-size:12px;color:var(--muted);padding-top:5px}
+.news-note{font-family:var(--mono);font-size:12px;color:var(--muted);margin-top:12px}
+@media(max-width:620px){.news a{grid-template-columns:1fr}}
 
-@media(max-width:560px){
-  body{font-size:18px}
-  .post{grid-template-columns:1fr}
-  .post time{padding-top:0}
-}
-@media(prefers-reduced-motion:reduce){.cursor{animation:none}html{scroll-behavior:auto}}
+/* reader + palette */
+.layer{position:fixed;inset:0;z-index:50;background:rgba(5,8,18,.8);backdrop-filter:blur(6px);display:none}
+.layer.open{display:block;animation:fade .2s}
+@keyframes fade{from{opacity:0}}
+#reader .sheet{position:absolute;inset:3vh 50% 3vh auto;transform:translateX(50%);width:min(720px,94vw);background:var(--panel);border:1px solid var(--line);border-radius:16px;overflow:auto}
+#bar{position:sticky;top:0;height:4px;background:var(--hot);width:0;z-index:2}
+.sheet .in{padding:clamp(22px,5vw,48px)}
+.sheet h2{font-size:clamp(28px,5vw,42px);line-height:1.08}
+.sheet .m{font-family:var(--mono);font-size:13px;color:var(--muted);margin-bottom:22px}
+.sheet p{margin:0 0 18px;max-width:62ch}
+.nav{display:flex;justify-content:space-between;gap:10px;margin-top:30px;flex-wrap:wrap}
+.nav button,.x{background:none;border:1px solid var(--line);border-radius:99px;padding:8px 16px;font-family:var(--mono);font-size:13px}
+.nav button:hover,.x:hover{border-color:var(--hot)}
+.x{position:absolute;top:14px;right:14px;z-index:3;background:var(--panel)}
+#pal .box{width:min(560px,92vw);margin:14vh auto 0;background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+#q{width:100%;background:none;border:0;border-bottom:1px solid var(--line);padding:16px 18px;font-family:var(--mono);font-size:16px;color:var(--text);outline:none}
+#res button{display:block;width:100%;text-align:left;background:none;border:0;padding:11px 18px;font-size:16px}
+#res button.sel,#res button:hover{background:var(--line)}
+#res small{font-family:var(--mono);color:var(--muted);margin-left:8px}
+#toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,30px);background:var(--text);color:var(--ink);padding:11px 20px;border-radius:99px;font-weight:600;opacity:0;transition:.3s;z-index:90;pointer-events:none;max-width:92vw;text-align:center}
+#toast.show{opacity:1;transform:translate(-50%,0)}
+#fx{position:fixed;inset:0;pointer-events:none;z-index:80}
+@media(max-width:760px){.about{grid-template-columns:1fr}.hero-text{top:6%}.chip.s{display:none}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.card{transform:none!important}}
 </style>
 </head>
 <body>
-<header>
-  <div class="wrap">
-    <a class="brand" href="#top">cek<span>@</span>cyberclub</a>
-    <nav aria-label="Main">
-      <a href="#posts">Posts</a>
-      <a href="#about">About</a>
-      <a href="#write">Write for us</a>
-    </nav>
-  </div>
-</header>
+<header><div class="wrap">
+  <a class="brand" href="#top">cek<b>@</b>cyberclub</a>
+  <span class="chip" id="explored" title="Open every post to earn the Explorer badge">Explored <i><u></u></i><span id="exn">0/0</span></span>
+  <button class="chip s" id="openpal" type="button">Search posts &nbsp;Ctrl K</button>
+</div></header>
 
 <main id="top">
-  <div class="wrap">
-    <div class="hero">
-      <h1>Learn it. Break it legally. Write it down.</h1>
-      <p>The blog of the Cyber Club of CEK: guides, CTF writeups and security news, written by students for students.</p>
-      <div class="term" aria-label="Latest posts">
-        <div class="term-bar"><i></i><i></i><i></i></div>
-        <div class="term-body">
-          <div><span class="prompt">$</span> <span id="typed"></span><span class="cursor" aria-hidden="true"></span></div>
-          <div class="out" id="termout"></div>
-        </div>
-      </div>
-    </div>
-
-    <section id="posts">
-      <h2>Posts</h2>
-      <p class="sub">Newest first. Filter by topic.</p>
-      <div class="filters" id="filters" role="group" aria-label="Filter posts by topic"></div>
-      <div id="postlist"></div>
-    </section>
-
-    <section id="about" class="about">
-      <h2>About the club</h2>
-      <p>We are a group of students at the College of Engineering Kallooppara (CEK) who want to understand how systems break and how to keep them safe. We run workshops, play CTFs together and share what we learn here.</p>
-      <p>New to security? Start with the posts tagged <em>beginner</em>. You do not need any experience to join.</p>
-      <div class="rules">Everything on this blog is for education. Only test systems you own or have written permission to test.</div>
-    </section>
-
-    <section id="write">
-      <h2>Write for us</h2>
-      <p class="sub">Solved a CTF or learned something useful? Share it.</p>
-      <p>Send your draft to the club editor. Add your contact link below once you set it up.</p>
-      <p><a href="mailto:cyberclub@example.com">cyberclub@example.com</a></p>
-    </section>
+<div class="hero" id="hero">
+  <canvas id="net" aria-hidden="true"></canvas>
+  <div class="wrap hero-text">
+    <h1 id="h1" aria-label="Every dot is a story. Pull one.">Every dot is a story. Pull one.</h1>
+    <p><b>Hover a dot</b> to preview a post and <b>click</b> to read it. Pulsing dots are posts you haven't opened yet. Click empty space to send out a ping.</p>
   </div>
-</main>
+  <div id="tip" role="status"></div>
+  <div class="scrollhint">scroll for all posts</div>
+</div>
 
-<footer>
-  <div class="wrap">&copy; <span id="yr"></span> Cyber Club, CEK. Built with plain HTML and hosted free on GitHub Pages.</div>
-</footer>
+<div class="wrap">
+<section id="posts">
+  <h2>All posts</h2>
+  <p class="sub">Pick a topic or press <b>/</b> to search.</p>
+  <div class="filters" id="filters" role="group" aria-label="Filter by topic"></div>
+  <div class="grid" id="grid"></div>
+</section>
+
+<section id="news">
+  <h2><span class="live" aria-hidden="true"></span>Live cyber news</h2>
+  <p class="sub">Headlines update automatically from trusted security sources. Click one to read it on the original site.</p>
+  <ul class="news" id="newslist"><li><a href="#news" style="pointer-events:none"><span class="src">loading</span><span>Fetching the latest headlines...</span></a></li></ul>
+  <div class="news-note" id="newsnote"></div>
+</section>
+
+<section id="about" class="about">
+  <div><h2>About the club</h2>
+  <p>We are students of the College of Engineering Kerala who want to understand how systems break and how to keep them safe. We run workshops, play CTFs together and share what we learn here.</p></div>
+  <div><h2>Write for us</h2>
+  <p>Solved a challenge or learned something useful? Send a draft to the club editor at <a href="mailto:cyberclub@example.com">cyberclub@example.com</a>.</p>
+  <p class="rules">Everything here is for education. Only test systems you own or have written permission to test.</p></div>
+</section>
+</div>
+</main>
+<footer><div class="wrap">&copy; <span id="yr"></span> Cyber Club, CEK. Plain HTML, hosted free.</div></footer>
+
+<div class="layer" id="reader" role="dialog" aria-modal="true" aria-label="Post reader"><div class="sheet" id="sheet"><div id="bar"></div><button class="x" id="close" type="button">Close Esc</button><div class="in" id="rbody"></div></div></div>
+<div class="layer" id="pal" role="dialog" aria-modal="true" aria-label="Search posts"><div class="box"><input id="q" placeholder="Type to search posts, Enter to open" autocomplete="off"><div id="res"></div></div></div>
+<div id="toast" role="status"></div>
+<canvas id="fx" aria-hidden="true"></canvas>
 
 <script>
-/* ==== EDIT HERE: add a new post by copying one block and putting it at the top ====
-   date: YYYY-MM-DD   tag: one word   url: link to the full post page (or "#" for now) */
-const POSTS = [
-  { date:"2026-11-01", tag:"beginner", title:"How to spot a phishing message in 30 seconds", summary:"Fake UPI requests, KYC alerts and job offers all share the same tricks. Learn the signs.", url:"#" },
-  { date:"2026-10-25", tag:"ctf", title:"Our first CTF: what we solved and what we missed", summary:"A short writeup of the challenges the club attempted and the lessons from each one.", url:"#" },
-  { date:"2026-10-18", tag:"tools", title:"Nmap basics: scanning your own home lab", summary:"Set up a safe lab and learn the five Nmap commands you will use most.", url:"#" },
-  { date:"2026-10-10", tag:"news", title:"This month in breaches, explained simply", summary:"What happened, who was affected and what you can learn from it.", url:"#" }
-];
+/* ===== EDIT HERE: add a post by copying one block. body = list of paragraphs. ===== */
+const COL={beginner:"#6ee7d8",ctf:"#ff7a59",tools:"#ffc861",news:"#9db4ff",networking:"#d29bff"};
+const POSTS=[
+{id:"phishing",date:"2026-11-01",tag:"beginner",min:4,title:"Spot a phishing message in 30 seconds",summary:"Fake UPI requests, KYC alerts and job offers share the same tricks.",body:["Phishing works by rushing you. A message says your account will be blocked today, or that you won a prize, so you tap before you think.","Check three things: who really sent it, where the link really goes (press and hold to preview it), and whether it asks for a password, OTP or PIN. A real bank never asks for an OTP.","If something feels off, close the message and open the official app yourself. Then tell your friends. Scams spread fastest in group chats."]},
+{id:"ctf",date:"2026-10-25",tag:"ctf",min:6,title:"Our first CTF: what we solved and what we missed",summary:"A short writeup of the challenges we tried and what each one taught us.",body:["We played a beginner CTF as a team of five. We solved the cryptography and web warm-ups quickly and got stuck on a binary challenge.","The lesson: split up early, share notes in one place, and never spend more than an hour alone on one problem.","Next time we will practise on picoCTF before the event, and keep a shared writeup file as we go."]},
+{id:"nmap",date:"2026-10-18",tag:"tools",min:5,title:"Nmap basics: scanning your own home lab",summary:"Set up a safe lab and learn the commands you will use most.",body:["Nmap finds which devices are on a network and which doors (ports) are open. Only scan machines you own or have permission to test.","Start with a simple scan of one lab machine, then add service detection to see which software is listening on each open port.","Write down what you find. Reading the results is the real skill, and it gets easier with every scan."]},
+{id:"breaches",date:"2026-10-10",tag:"news",min:5,title:"This month in breaches, explained simply",summary:"What happened, who was affected and what we can learn.",body:["Most big breaches start small: a reused password, an unpatched server, or one employee clicking the wrong link.","When a company is breached, change your password there and anywhere you reused it. Turn on two-step login for your email first.","Following breach news is a good habit. Each one is a free case study."]},
+{id:"passwords",date:"2026-10-02",tag:"beginner",min:3,title:"Passwords that survive: a 5 minute fix",summary:"Use a password manager and turn on two-step login.",body:["Long beats clever. A passphrase of four random words is easier to remember and harder to crack than a short mix of symbols.","Use a different password for every account. A password manager remembers them all so you do not have to.","Finish by enabling two-step login on your email, Instagram and WhatsApp. It takes five minutes."]},
+{id:"dns",date:"2026-09-24",tag:"networking",min:6,title:"DNS in plain words: the internet's phonebook",summary:"How a name like cek.ac.in becomes a machine you can reach.",body:["Computers talk using numbers, but people remember names. DNS is the system that turns one into the other.","When you open a site, your device asks a resolver, which asks other servers until it finds the answer, then remembers it for a while.","Attackers love DNS because everything depends on it. Understanding it makes many security topics click."]}
+].sort((a,b)=>b.date.localeCompare(a.date));
 
-const fmt = d => new Date(d+"T00:00:00").toLocaleDateString("en-IN",{day:"numeric",month:"short",year:"numeric"});
-const esc = s => s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-const sorted = [...POSTS].sort((a,b)=>b.date.localeCompare(a.date));
-let active = "all";
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const store={get(k,d){try{const v=JSON.parse(localStorage.getItem(k));return v??d}catch{return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch{}}};
+const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+let read=new Set(store.get("read",[])),liked=new Set(store.get("liked",[])),active="all";
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const fmt=d=>new Date(d+"T00:00:00").toLocaleDateString("en-IN",{day:"numeric",month:"short",year:"numeric"});
+const byId=id=>POSTS.find(p=>p.id===id);
 
-function render(){
-  const list = document.getElementById("postlist");
-  const items = sorted.filter(p=>active==="all"||p.tag===active);
-  list.innerHTML = items.length ? items.map(p=>`
-    <article class="post">
-      <time datetime="${p.date}">${fmt(p.date)}</time>
-      <div>
-        <h3><a href="${esc(p.url)}">${esc(p.title)}</a></h3>
-        <p>${esc(p.summary)}</p>
-        <span class="tag">#${esc(p.tag)}</span>
-      </div>
-    </article>`).join("") : '<div class="empty">No posts in this topic yet.</div>';
-  document.querySelectorAll("#filters button").forEach(b=>b.setAttribute("aria-pressed", b.dataset.t===active));
+function toast(t){const e=$("#toast");e.textContent=t;e.classList.add("show");clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove("show"),3200)}
+function scramble(el,txt){if(reduce)return;const ch="!<>-_/[]{}=+*^?#";let f=0;(function s(){el.textContent=[...txt].map((c,i)=>i<f/1.6||c===" "?c:ch[Math.random()*ch.length|0]).join("");if(f++<txt.length*1.6+1)requestAnimationFrame(s);else el.textContent=txt})()}
+
+/* ---- confetti ---- */
+const fx=$("#fx"),fc=fx.getContext("2d");let bits=[],fxOn=false;
+function fxSize(){fx.width=innerWidth;fx.height=innerHeight}fxSize();addEventListener("resize",fxSize);
+function burst(x,y){if(reduce)return;const cs=Object.values(COL);for(let i=0;i<100;i++){const a=Math.random()*6.283,s=2+Math.random()*8;bits.push({x,y,vx:Math.cos(a)*s,vy:Math.sin(a)*s-4,l:1,c:cs[i%5]})}if(!fxOn){fxOn=true;fxLoop()}}
+function fxLoop(){fc.clearRect(0,0,fx.width,fx.height);bits=bits.filter(b=>b.l>0);bits.forEach(b=>{b.x+=b.vx;b.y+=b.vy;b.vy+=.22;b.vx*=.99;b.l-=.011;fc.globalAlpha=Math.max(b.l,0);fc.fillStyle=b.c;fc.fillRect(b.x,b.y,6,9)});fc.globalAlpha=1;if(bits.length)requestAnimationFrame(fxLoop);else fxOn=false}
+
+/* ---- progress + badges ---- */
+function updateProgress(){
+  $("#exn").textContent=read.size+"/"+POSTS.length;
+  $("#explored u").style.width=(read.size/POSTS.length*100)+"%";
+  $$(".card").forEach(c=>{c.querySelector(".seen").textContent=read.has(c.dataset.id)?"read":"new"});
 }
-const tags = ["all",...new Set(sorted.map(p=>p.tag))];
-const f = document.getElementById("filters");
-tags.forEach(t=>{
-  const b=document.createElement("button");
-  b.textContent=t; b.dataset.t=t; b.type="button";
-  b.onclick=()=>{active=t;render()};
-  f.appendChild(b);
+
+/* ---- cards ---- */
+function renderCards(){
+  const g=$("#grid");
+  g.innerHTML=POSTS.filter(p=>active==="all"||p.tag===active).map(p=>`
+  <article class="card" data-id="${p.id}" style="--c:${COL[p.tag]}" tabindex="0" role="button" aria-label="Read: ${esc(p.title)}">
+    <span class="tag">#${p.tag}</span><h3>${esc(p.title)}</h3><p>${esc(p.summary)}</p>
+    <div class="meta"><span>${fmt(p.date)} &middot; ${p.min} min</span><span class="seen"></span>
+    <button class="like" type="button" aria-pressed="${liked.has(p.id)}" aria-label="Like this post">&#9829; ${liked.has(p.id)?"liked":"like"}</button></div>
+  </article>`).join("");
+  $$(".card").forEach(c=>{
+    c.addEventListener("click",e=>{if(e.target.closest(".like")){const id=c.dataset.id,b=e.target.closest(".like");liked.has(id)?liked.delete(id):liked.add(id);store.set("liked",[...liked]);b.setAttribute("aria-pressed",liked.has(id));b.innerHTML="&#9829; "+(liked.has(id)?"liked":"like");b.classList.remove("pop");void b.offsetWidth;b.classList.add("pop");if(liked.has(id)){const r=b.getBoundingClientRect();burst(r.left+r.width/2,r.top)}return}openPost(c.dataset.id)});
+    c.addEventListener("keydown",e=>{if(e.key==="Enter"&&e.target===c)openPost(c.dataset.id)});
+    c.addEventListener("pointermove",e=>{if(reduce)return;const r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;c.style.setProperty("--ry",((x-.5)*8)+"deg");c.style.setProperty("--rx",((.5-y)*8)+"deg");c.style.setProperty("--mx",x*100+"%");c.style.setProperty("--my",y*100+"%")});
+    c.addEventListener("pointerleave",()=>{c.style.setProperty("--rx","0deg");c.style.setProperty("--ry","0deg")});
+  });
+  updateProgress();
+}
+const fl=$("#filters");
+["all",...new Set(POSTS.map(p=>p.tag))].forEach(t=>{const b=document.createElement("button");b.type="button";b.textContent=t;b.dataset.t=t;b.onclick=()=>{active=t;$$("#filters button").forEach(x=>x.setAttribute("aria-pressed",x.dataset.t===t));renderCards()};fl.appendChild(b)});
+$$("#filters button")[0].setAttribute("aria-pressed","true");
+
+/* ---- reader ---- */
+let cur=null,lastFocus=null;
+function openPost(id){
+  const p=byId(id),i=POSTS.indexOf(p),prev=POSTS[i+1],next=POSTS[i-1];cur=id;
+  lastFocus=document.activeElement;
+  $("#rbody").innerHTML=`<div class="m" style="color:${COL[p.tag]}">#${p.tag} &middot; ${fmt(p.date)} &middot; ${p.min} min read</div><h2>${esc(p.title)}</h2>${p.body.map(t=>`<p>${esc(t)}</p>`).join("")}
+  <div class="nav"><button type="button" ${prev?`data-go="${prev.id}"`:"disabled"}>&#8592; Older</button><button type="button" ${next?`data-go="${next.id}"`:"disabled"}>Newer &#8594;</button></div>`;
+  $$("#rbody [data-go]").forEach(b=>b.onclick=()=>openPost(b.dataset.go));
+  $("#reader").classList.add("open");document.body.style.overflow="hidden";$("#sheet").scrollTop=0;$("#bar").style.width="0";$("#close").focus();
+  const first=!read.has(id);read.add(id);store.set("read",[...read]);updateProgress();
+  if(first&&read.size===POSTS.length){setTimeout(()=>{toast("Explorer badge unlocked. You read every post!");burst(innerWidth/2,innerHeight/3)},500)}
+}
+function closePost(){$("#reader").classList.remove("open");document.body.style.overflow="";if(lastFocus)lastFocus.focus()}
+$("#close").onclick=closePost;
+$("#reader").addEventListener("click",e=>{if(e.target.id==="reader")closePost()});
+$("#sheet").addEventListener("scroll",e=>{const s=e.target;$("#bar").style.width=(s.scrollTop/Math.max(1,s.scrollHeight-s.clientHeight)*100)+"%"});
+
+/* ---- search palette ---- */
+let sel=0,hits=[];
+function openPal(){$("#pal").classList.add("open");$("#q").value="";$("#q").focus();filterPal()}
+function closePal(){$("#pal").classList.remove("open")}
+function filterPal(){const q=$("#q").value.toLowerCase().trim();hits=POSTS.filter(p=>(p.title+" "+p.tag+" "+p.summary).toLowerCase().includes(q));sel=0;drawPal()}
+function drawPal(){$("#res").innerHTML=hits.length?hits.map((p,i)=>`<button type="button" class="${i===sel?"sel":""}" data-id="${p.id}">${esc(p.title)}<small>#${p.tag}</small></button>`).join(""):'<button type="button" disabled>No match. Try another word.</button>';$$("#res [data-id]").forEach(b=>b.onclick=()=>{closePal();openPost(b.dataset.id)})}
+$("#q").addEventListener("input",filterPal);
+$("#q").addEventListener("keydown",e=>{if(e.key==="ArrowDown"){sel=Math.min(sel+1,hits.length-1);drawPal();e.preventDefault()}else if(e.key==="ArrowUp"){sel=Math.max(sel-1,0);drawPal();e.preventDefault()}else if(e.key==="Enter"&&hits[sel]){closePal();openPost(hits[sel].id)}});
+$("#pal").addEventListener("click",e=>{if(e.target.id==="pal")closePal()});
+$("#openpal").onclick=openPal;
+addEventListener("keydown",e=>{
+  if(e.key==="Escape"){closePal();closePost()}
+  else if((e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==="k"){e.preventDefault();openPal()}
+  else if(e.key==="/"&&!/INPUT|TEXTAREA/.test(document.activeElement.tagName)){e.preventDefault();openPal()}
 });
-render();
 
-/* hero terminal: types one command, then lists the latest posts */
-const cmd="ls -t posts | head -3";
-const typed=document.getElementById("typed"), out=document.getElementById("termout");
-const finish=()=>{typed.textContent=cmd;out.textContent=sorted.slice(0,3).map(p=>p.date+"  "+p.title).join("\n");};
-if(matchMedia("(prefers-reduced-motion: reduce)").matches){finish();}
-else{let i=0;const t=setInterval(()=>{typed.textContent=cmd.slice(0,++i);if(i>=cmd.length){clearInterval(t);setTimeout(finish,350);}},70);}
+/* ---- hero network ---- */
+const cv=$("#net"),cx=cv.getContext("2d"),tip=$("#tip");let W,H,D=1,hover=null,pings=[];const mouse={x:-999,y:-999};
+const nodes=POSTS.map((p,i)=>({p,i,x:0,y:0})),parts=Array.from({length:70},()=>({x:Math.random()*1200,y:Math.random()*700,vx:(Math.random()-.5)*.3,vy:(Math.random()-.5)*.3}));
+function size(){D=Math.min(devicePixelRatio||1,2);const r=cv.getBoundingClientRect();W=r.width;H=r.height;cv.width=W*D;cv.height=H*D;cx.setTransform(D,0,0,D,0,0)}
+size();addEventListener("resize",()=>{size();if(reduce)frame(0)});
+function line(a,b,c,al){cx.globalAlpha=al;cx.strokeStyle=c;cx.beginPath();cx.moveTo(a.x,a.y);cx.lineTo(b.x,b.y);cx.stroke()}
+function frame(t){
+  cx.clearRect(0,0,W,H);cx.lineWidth=1;
+  const wide=W>820,ox=wide?W*.7:W/2,oy=wide?H*.5:H*.68,rx=Math.min(W*(wide?.24:.36),300),ry=Math.min(H*(wide?.34:.2),230);
+  nodes.forEach((n,i)=>{const a=i/nodes.length*6.283+t*.00006,k=1+.07*Math.sin(t/900+i*2);n.x=ox+Math.cos(a)*rx*k;n.y=oy+Math.sin(a)*ry*k});
+  parts.forEach(q=>{q.x+=q.vx;q.y+=q.vy;if(q.x<0)q.x=W;if(q.x>W)q.x=0;if(q.y<0)q.y=H;if(q.y>H)q.y=0;const dx=q.x-mouse.x,dy=q.y-mouse.y,d=Math.hypot(dx,dy);if(d<110&&d>0){q.x+=dx/d*(110-d)*.05;q.y+=dy/d*(110-d)*.05}});
+  for(let i=0;i<parts.length;i++){for(let j=i+1;j<parts.length;j++){const d=Math.hypot(parts[i].x-parts[j].x,parts[i].y-parts[j].y);if(d<95)line(parts[i],parts[j],"#8d99c4",(1-d/95)*.25)}}
+  nodes.forEach((n,i)=>{const m=nodes[(i+1)%nodes.length];line(n,m,"#8d99c4",.22);parts.forEach(q=>{const d=Math.hypot(n.x-q.x,n.y-q.y);if(d<140)line(n,q,COL[n.p.tag],(1-d/140)*.5)});const dm=Math.hypot(n.x-mouse.x,n.y-mouse.y);if(dm<190)line(n,mouse,"#ff7a59",(1-dm/190)*.7)});
+  cx.globalAlpha=.7;cx.fillStyle="#8d99c4";parts.forEach(q=>{cx.beginPath();cx.arc(q.x,q.y,1.4,0,6.283);cx.fill()});
+  hover=null;let best=26;nodes.forEach(n=>{const d=Math.hypot(n.x-mouse.x,n.y-mouse.y);if(d<best){best=d;hover=n}});
+  cv.style.cursor=hover?"pointer":"default";
+  nodes.forEach(n=>{const c=COL[n.p.tag],seen=read.has(n.p.id),h=hover===n,r=7+(h?5:0);
+    if(!seen){const pr=r+6+4*Math.sin(t/300+n.i);cx.globalAlpha=.35;cx.strokeStyle=c;cx.beginPath();cx.arc(n.x,n.y,pr,0,6.283);cx.stroke()}
+    cx.globalAlpha=1;cx.shadowColor=c;cx.shadowBlur=h?30:14;cx.fillStyle=seen?c:"#0a0f1f";cx.strokeStyle=c;cx.lineWidth=2.5;cx.beginPath();cx.arc(n.x,n.y,r,0,6.283);cx.fill();cx.stroke();cx.shadowBlur=0;cx.lineWidth=1;
+    if(W>560){cx.font="12px 'IBM Plex Mono',monospace";cx.fillStyle="#e6ebff";cx.globalAlpha=h?1:.7;const lab=n.p.title.length>24?n.p.title.slice(0,23)+"...":n.p.title,right=n.x<ox;cx.textAlign=right?"right":"left";cx.fillText(lab,n.x+(right?-16:16),n.y+4)}});
+  pings=pings.filter(p=>p.r<260);pings.forEach(p=>{p.r+=3.2;cx.globalAlpha=1-p.r/260;cx.strokeStyle="#ff7a59";cx.lineWidth=2;cx.beginPath();cx.arc(p.x,p.y,p.r,0,6.283);cx.stroke()});
+  cx.globalAlpha=1;cx.lineWidth=1;
+  if(hover){tip.innerHTML=`<b>${esc(hover.p.title)}</b><small>#${hover.p.tag} &middot; ${hover.p.min} min &middot; ${read.has(hover.p.id)?"read":"unread, click to open"}</small>`;tip.style.left=Math.min(Math.max(hover.x,130),W-130)+"px";tip.style.top=hover.y+"px";tip.style.opacity=1}else tip.style.opacity=0;
+  if(!reduce)requestAnimationFrame(frame)
+}
+function pos(e){const r=cv.getBoundingClientRect();mouse.x=e.clientX-r.left;mouse.y=e.clientY-r.top}
+cv.addEventListener("pointermove",pos);cv.addEventListener("pointerleave",()=>{mouse.x=mouse.y=-999});
+cv.addEventListener("pointerdown",pos);
+cv.addEventListener("click",()=>{if(hover)openPost(hover.p.id);else pings.push({x:mouse.x,y:mouse.y,r:4})});
+requestAnimationFrame(frame);
 
-document.getElementById("yr").textContent=new Date().getFullYear();
+/* ---- live news (refreshed automatically by the GitHub Action) ---- */
+/* Replace YOUR-ORG/YOUR-REPO with your repository, e.g. cekcyberclub/cekcyberclub.github.io */
+const NEWS_URL="https://raw.githubusercontent.com/YOUR-ORG/YOUR-REPO/data/news.json";
+function ago(iso){const m=Math.max(1,Math.round((Date.now()-new Date(iso))/60000));if(m<60)return m+" min ago";const h=Math.round(m/60);if(h<24)return h+" h ago";const d=Math.round(h/24);return d+(d===1?" day ago":" days ago")}
+async function loadNews(){
+  const ul=$("#newslist"),note=$("#newsnote");
+  try{
+    const r=await fetch(NEWS_URL,{cache:"no-cache"});if(!r.ok)throw 0;
+    const data=await r.json();
+    ul.innerHTML=data.items.filter(n=>/^https?:\/\//.test(n.link)).map(n=>`<li><a href="${esc(n.link)}" target="_blank" rel="noopener noreferrer"><span class="src">${esc(n.source)}</span><span>${esc(n.title)}</span><span class="ago">${ago(n.date)}</span></a></li>`).join("");
+    note.textContent="Last checked "+ago(data.updated)+". Refreshes every 6 hours. Headlines belong to their publishers.";
+  }catch{
+    ul.innerHTML='<li><a href="#news" style="pointer-events:none"><span class="src">offline</span><span>News is not available right now. Please check back soon.</span></a></li>';
+  }
+}
+loadNews();
+
+renderCards();scramble($("#h1"),"Every dot is a story. Pull one.");
+$("#yr").textContent=new Date().getFullYear();
 </script>
 </body>
 </html>
