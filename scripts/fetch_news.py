@@ -1,6 +1,4 @@
-"""Collects the latest headlines from public RSS/Atom feeds into news.json.
-Only the title, link, source and date are saved. Readers click through to the original site.
-Add or remove feeds in FEEDS below."""
+
 import json
 import urllib.request
 import xml.etree.ElementTree as ET
