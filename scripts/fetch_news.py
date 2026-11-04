@@ -35,7 +35,13 @@ def parse_date(s):
 
 
 def read_feed(name, url):
-    req = urllib.request.Request(url, headers={"User-Agent": "CEK-CyberClub-NewsBot/1.0"})
+    req = urllib.request.Request(
+        url,
+        headers={
+            "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36",
+            "Accept": "application/rss+xml, application/xml, text/xml, */*",
+        },
+    )
     with urllib.request.urlopen(req, timeout=25) as r:
         root = ET.fromstring(r.read())
     items = []
