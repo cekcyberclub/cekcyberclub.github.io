@@ -56,11 +56,12 @@ def read_feed(name, url):
         if "link" in kids:
             link = kids["link"].attrib.get("href") or (kids["link"].text or "")
         link = link.strip()
-        date = parse_date(
-            (kids.get("pubDate") or kids.get("published") or kids.get("updated") or kids.get("date")).text
-            if any(k in kids for k in ("pubDate", "published", "updated", "date"))
-            else None
-        )
+        raw_date = None
+        for key in ("pubDate", "published", "updated", "date"):
+            if key in kids and kids[key].text:
+                raw_date = kids[key].text
+                break
+        date = parse_date(raw_date)
         if title and link.startswith(("http://", "https://")):
             items.append({"title": title, "link": link, "source": name, "date": date.isoformat()})
     items.sort(key=lambda x: x["date"], reverse=True)
