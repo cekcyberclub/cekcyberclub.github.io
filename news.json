@@ -1,0 +1,113 @@
+{
+ "updated": "2026-11-28T15:01:47.792860+00:00",
+ "items": [
+  {
+   "title": "pCloud Password Manager Hit by Cyber Attack Involving Email Address Exposure and Login Attempts",
+   "link": "https://thehackernews.com/2026/11/pcloud-password-manager-hit-by-cyber.html",
+   "source": "The Hacker News",
+   "date": "2026-11-28T13:38:11+05:30"
+  },
+  {
+   "title": "Suspected Vietnam-Linked Hackers Target Southeast Asia in South China Sea Espionage Campaign",
+   "link": "https://thehackernews.com/2026/11/suspected-vietnam-linked-hackers-target.html",
+   "source": "The Hacker News",
+   "date": "2026-11-27T22:06:11+05:30"
+  },
+  {
+   "title": "Microsoft Store App Found Delivering Vinci RAT Capable of Remote System Control",
+   "link": "https://thehackernews.com/2026/11/microsoft-store-app-found-delivering.html",
+   "source": "The Hacker News",
+   "date": "2026-11-27T17:19:34+05:30"
+  },
+  {
+   "title": "How to Keep Your Security Picture Current When Attackers Move at AI Speed",
+   "link": "https://thehackernews.com/2026/11/how-to-keep-your-security-picture.html",
+   "source": "The Hacker News",
+   "date": "2026-11-27T16:02:18+05:30"
+  },
+  {
+   "title": "Hackers Trojanize Official Q-Dir and DesktopOK Downloads to Deliver Remote Access Malware",
+   "link": "https://thehackernews.com/2026/11/hackers-trojanize-official-q-dir-and.html",
+   "source": "The Hacker News",
+   "date": "2026-11-27T14:59:30+05:30"
+  },
+  {
+   "title": "pCloud confirms password manager hack after suspicious login alerts",
+   "link": "https://www.bleepingcomputer.com/news/security/pcloud-confirms-password-manager-hack-after-suspicious-login-alerts/",
+   "source": "BleepingComputer",
+   "date": "2026-11-27T14:26:04-05:00"
+  },
+  {
+   "title": "New Boston Scientific data breach exposes personal, medical info",
+   "link": "https://www.bleepingcomputer.com/news/security/new-boston-scientific-data-breach-exposes-personal-medical-info/",
+   "source": "BleepingComputer",
+   "date": "2026-11-27T13:57:42-05:00"
+  },
+  {
+   "title": "Unpatched Cacti zero-day with public PoC gives remote code execution",
+   "link": "https://www.bleepingcomputer.com/news/security/unpatched-cacti-zero-day-with-public-poc-gives-remote-code-execution/",
+   "source": "BleepingComputer",
+   "date": "2026-11-27T12:06:13-05:00"
+  },
+  {
+   "title": "CISA Adds Three Known Exploited Vulnerabilities to Catalog",
+   "link": "https://www.cisa.gov/news-events/alerts/2026/11/27/cisa-adds-three-known-exploited-vulnerabilities-catalog",
+   "source": "CISA Advisories",
+   "date": "2026-11-27T12:00:00+00:00"
+  },
+  {
+   "title": "Switzerland Confirms AI-Assisted Cyberattacks Breached Critical Infrastructure Operators",
+   "link": "https://thehackernews.com/2026/11/switzerland-confirms-ai-assisted.html",
+   "source": "The Hacker News",
+   "date": "2026-11-27T11:34:20+05:30"
+  },
+  {
+   "title": "US Air Force cloud platform reportedly hacked in latest federal breach",
+   "link": "https://www.bleepingcomputer.com/news/security/us-air-force-cloud-platform-reportedly-hacked-in-latest-federal-breach/",
+   "source": "BleepingComputer",
+   "date": "2026-11-27T10:09:40-05:00"
+  },
+  {
+   "title": "Your Firewall Isn't Enough: The Hidden Risk of Unmanaged VMs",
+   "link": "https://www.bleepingcomputer.com/news/security/your-firewall-isnt-enough-the-hidden-risk-of-unmanaged-vms/",
+   "source": "BleepingComputer",
+   "date": "2026-11-27T10:00:10-05:00"
+  },
+  {
+   "title": "Malwarebytes Antivirus: Get 50% off during Black Friday 2026",
+   "link": "https://www.bleepingcomputer.com/news/security/malwarebytes-antivirus-get-50-percent-off-during-black-friday-2026/",
+   "source": "BleepingComputer",
+   "date": "2026-11-27T09:22:06-05:00"
+  },
+  {
+   "title": "CISA Adds 10 Known Exploited Vulnerabilities to Catalog",
+   "link": "https://www.cisa.gov/news-events/alerts/2026/11/25/cisa-adds-10-known-exploited-vulnerabilities-catalog",
+   "source": "CISA Advisories",
+   "date": "2026-11-25T12:00:00+00:00"
+  },
+  {
+   "title": "AutomationDirect C-More EA9 Programming Software",
+   "link": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-328-01",
+   "source": "CISA Advisories",
+   "date": "2026-11-24T12:00:00+00:00"
+  },
+  {
+   "title": "CISA Adds Three Known Exploited Vulnerabilities to Catalog",
+   "link": "https://www.cisa.gov/news-events/alerts/2026/11/24/cisa-adds-three-known-exploited-vulnerabilities-catalog",
+   "source": "CISA Advisories",
+   "date": "2026-11-24T12:00:00+00:00"
+  },
+  {
+   "title": "Schneider Electric EcoStruxure Power Build Rapsody software",
+   "link": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-328-02",
+   "source": "CISA Advisories",
+   "date": "2026-11-24T12:00:00+00:00"
+  },
+  {
+   "title": "Danfoss AK-SM 8xxA Series",
+   "link": "https://www.cisa.gov/news-events/ics-advisories/icsa-26-328-03",
+   "source": "CISA Advisories",
+   "date": "2026-11-24T12:00:00+00:00"
+  }
+ ]
+}
